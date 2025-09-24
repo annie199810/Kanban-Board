@@ -20,8 +20,7 @@ const KanbanBoard = () => {
     if (!over) return;
 
     if (active.id !== over.id) {
-      // Remove this unused variable
-      // const activeTask = tasks.find(task => task.id === active.id);
+     
       
       const overColumnId = over.id;
 
