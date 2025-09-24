@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useTasks } from '../context/TaskContext';
 
 const Header = () => {
-  const { tasks, dispatch } = useTasks();
   const [isScrolled, setIsScrolled] = useState(false);
-
- 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,8 +11,6 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
- 
 
   return (
     <header className={`sticky top-0 z-40 transition-all duration-300 ${

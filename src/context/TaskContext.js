@@ -1,8 +1,6 @@
-
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 const TaskContext = createContext();
-
 
 export const initialState = {
   tasks: [
@@ -16,7 +14,6 @@ export const initialState = {
       tags: ["Design", "UI/UX"],
       createdAt: new Date().toISOString(),
     },
-    
     {
       id: '2',
       title: "API integration",
@@ -27,7 +24,6 @@ export const initialState = {
       tags: ["Backend", "API"],
       createdAt: new Date().toISOString(),
     },
-    
     {
       id: '3',
       title: "Security audit",
@@ -128,17 +124,30 @@ export const useTasks = () => {
 export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
 
-
+  // Load tasks from localStorage on component mount
   useEffect(() => {
-    const savedTasks = localStorage.getItem('kanban-tasks');
-    if (savedTasks) {
-      dispatch({ type: 'LOAD_TASKS', payload: JSON.parse(savedTasks) });
+    try {
+      const savedTasks = localStorage.getItem('kanban-tasks');
+      if (savedTasks) {
+        const parsedTasks = JSON.parse(savedTasks);
+        // Only load if we have valid tasks
+        if (Array.isArray(parsedTasks) && parsedTasks.length > 0) {
+          dispatch({ type: 'LOAD_TASKS', payload: parsedTasks });
+        }
+      }
+    } catch (error) {
+      console.error('Error loading tasks from localStorage:', error);
+      // If there's an error, use the initial state
     }
   }, []);
 
-  
+  // Save tasks to localStorage whenever tasks change
   useEffect(() => {
-    localStorage.setItem('kanban-tasks', JSON.stringify(state.tasks));
+    try {
+      localStorage.setItem('kanban-tasks', JSON.stringify(state.tasks));
+    } catch (error) {
+      console.error('Error saving tasks to localStorage:', error);
+    }
   }, [state.tasks]);
 
   const value = {
