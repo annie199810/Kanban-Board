@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+
+import React from 'react';
+import { TaskProvider } from './context/TaskContext';
+import KanbanBoard from './components/KanbanBoard';
+import Header from './components/Header';
 import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TaskProvider>
+      <div className="kanban-board min-h-screen">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <KanbanBoard />
+        </main>
+      </div>
+    </TaskProvider>
   );
 }
 
