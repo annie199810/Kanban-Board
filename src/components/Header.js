@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useTasks } from '../context/TaskContext';
 
@@ -6,9 +5,7 @@ const Header = () => {
   const { tasks, dispatch } = useTasks();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(task => task.status === 'done').length;
-  const inProgressTasks = tasks.filter(task => task.status === 'inprogress').length;
+ 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,10 +16,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleAddTask = () => {
-    dispatch({ type: 'SET_EDITING_TASK', payload: null });
-    dispatch({ type: 'TOGGLE_MODAL', payload: true });
-  };
+ 
 
   return (
     <header className={`sticky top-0 z-40 transition-all duration-300 ${
@@ -45,7 +39,6 @@ const Header = () => {
           </div>
           
           <div className="flex items-center space-x-8">
-          
             <div className="flex items-center space-x-3">
               <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 flex items-center space-x-2 border border-gray-200">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,8 +46,6 @@ const Header = () => {
                 </svg>
                 <span>Filter</span>
               </button>
-              
-             
               
               <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-lg border-2 border-white flex items-center justify-center">
                 <span className="text-white text-sm font-semibold">AJ</span>
