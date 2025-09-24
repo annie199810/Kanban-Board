@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useTasks } from '../context/TaskContext';
 import Column from './Column';
 import { STATUSES } from '../utils/helpers';
@@ -36,6 +35,9 @@ const KanbanBoard = () => {
     }
   };
 
+
+  const taskIds = tasks.map(task => task.id);
+
   return (
     <div className="kanban-board-container">
       <div className="column-grid">
@@ -44,15 +46,17 @@ const KanbanBoard = () => {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          {Object.entries(STATUSES).map(([statusKey, status]) => (
-            <Column
-              key={statusKey}
-              id={statusKey}
-              title={status.label}
-              tasks={tasks.filter(task => task.status === statusKey)}
-              color={status.color}
-            />
-          ))}
+          <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
+            {Object.entries(STATUSES).map(([statusKey, status]) => (
+              <Column
+                key={statusKey}
+                id={statusKey}
+                title={status.label}
+                tasks={tasks.filter(task => task.status === statusKey)}
+                color={status.color}
+              />
+            ))}
+          </SortableContext>
         </DndContext>
       </div>
     </div>
