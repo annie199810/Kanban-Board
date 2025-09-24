@@ -1,4 +1,4 @@
-
+// src/components/Header.js
 import React, { useState, useEffect } from 'react';
 import { useTasks } from '../context/TaskContext';
 
@@ -31,7 +31,7 @@ const Header = () => {
         : 'bg-white border-b border-gray-100'
     }`}>
       <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">        
+        <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,17 +42,44 @@ const Header = () => {
               <h1 className="text-2xl font-bold text-gray-900">Project Board</h1>
               <p className="text-sm text-gray-600 mt-1">Advanced Kanban Workflow</p>
             </div>
-          </div>                 
-          <div className="flex items-center space-x-8">                             
-            <div className="flex items-center space-x-3">            
+          </div>
+          
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-6">
+              <div className="text-center">
+                <div className="text-lg font-semibold text-gray-900">{totalTasks}</div>
+                <div className="text-xs text-gray-500 font-medium">TOTAL</div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-semibold text-blue-600">{inProgressTasks}</div>
+                <div className="text-xs text-gray-500 font-medium">IN PROGRESS</div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-semibold text-green-600">{completedTasks}</div>
+                <div className="text-xs text-gray-500 font-medium">COMPLETED</div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
               <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 flex items-center space-x-2 border border-gray-200">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
                 </svg>
                 <span>Filter</span>
-              </button>             
+              </button>
+              
+              <button 
+                onClick={handleAddTask}
+                className="px-5 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-200 font-semibold shadow-lg flex items-center space-x-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span>Add Task</span>
+              </button>
+              
               <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-lg border-2 border-white flex items-center justify-center">
-                <span className="text-white text-sm font-semibold">AJ</span>
+                <span className="text-white text-sm font-semibold">JD</span>
               </div>
             </div>
           </div>
